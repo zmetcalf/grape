@@ -1,16 +1,23 @@
 package main
 
 import (
-	"net/http"
-	"log"
-	"time"
+	"flag"
 	"github.com/gorilla/mux"
 	"github.com/zmetcalf/grape/handlers"
+	"log"
+	"net/http"
+	"time"
 )
 
 func main() {
+	var dir string
+
+	flag.StringVar(&dir, "dir", "./app/dist", "the directory to serve files from. Set to dist directory")
+	flag.Parse()
+
 	r := mux.NewRouter()
-	r.HandleFunc("/", handlers.HomeHandler)
+	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
+	r.HandleFunc("/home", handlers.HomeHandler)
 	http.Handle("/", r)
 
 	srv := &http.Server{
