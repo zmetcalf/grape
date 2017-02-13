@@ -7,14 +7,11 @@ module.exports = {
   entry: {
     polyfills: './app/src/polyfills.ts',
     vendor: './app/src/vendor.ts',
-    app: './app/src/app.ts',
+    app: './app/src/app.component.ts',
   },
 
   resolve: {
     extensions: ['.ts', '.js']
-  },
-  output: {
-    filename: 'app.js',
   },
 
   module: {
@@ -57,7 +54,7 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
-      template: 'app/dist/index.html'
+      template: './app/dist/index.html'
     })
   ],
 };

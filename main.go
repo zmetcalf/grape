@@ -16,8 +16,8 @@ func main() {
 	flag.Parse()
 
 	r := mux.NewRouter()
-	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 	r.HandleFunc("/home", handlers.HomeHandler)
+	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 	http.Handle("/", r)
 
 	srv := &http.Server{

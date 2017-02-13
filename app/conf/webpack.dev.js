@@ -7,8 +7,8 @@ module.exports = webpackMerge(commonConfig, {
   devtool: 'cheap-module-eval-source-map',
 
   output: {
-    path: helpers.root('dist'),
-    publicPath: 'http://localhost:8080/',
+    path: helpers.root('./app/dist'),
+    publicPath: 'http://towering_arch:8080/',
     filename: '[name].js',
     chunkFilename: '[id].chunk.js'
   },
@@ -19,6 +19,12 @@ module.exports = webpackMerge(commonConfig, {
 
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal'
+    stats: 'minimal',
+    proxy: {
+      '/home': {
+        target: 'http://127.0.0.1:8000',
+        secure: false,
+      }
+    }
   }
 });
